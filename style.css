@@ -1,5 +1,18 @@
 .jumbotron {
     background-image: url(./assets/sun-beach.jpg);
     background-size: cover;
-    height: 100%;
+    min-height: 500px;
+    background-repeat: no-repeat;
+}
+
+.jumbotron h1,
+.jumbotron p {
+    text-align: center;
+}
+.searchBox{
+    margin-top: 100px;
+}
+
+.form-control {
+    border: 1px solid #f8c146
 }
