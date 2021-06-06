@@ -4,8 +4,9 @@ var searchBtn = document.querySelector('#searchBtn');
 var searchInputVal;
 //API key from openweathermap (in my account)
 var key = '91982993508dc4b35a5d3a4295c7bf1e';
+// var lat;
+// var lon;
 
-console.log(searchBtn)
 
 // Search bar submit function
 function handleSearchFormSubmit(event){
@@ -13,11 +14,13 @@ function handleSearchFormSubmit(event){
     searchInputVal = document.querySelector('.searchInput').value;
     console.log(searchInputVal)
   
+
     if (!searchInputVal) {
       console.error('Please put the city...');
       return;
     }  
-    getWeather();
+    getWeather(searchInputVal);
+    getFive(searchInputVal);
   }
 
   
@@ -26,27 +29,83 @@ searchBtn.addEventListener('click', handleSearchFormSubmit);
 
 
 
+
+
 // AJAX call requires a third party library, jQuery
-function getWeather (){
+function getWeather (searchInputVal){
 $.ajax({
     url: ('https://api.openweathermap.org/data/2.5/weather?q=' + searchInputVal + '&units=imperial' + '&appid=' + key),
     method: 'GET',
   }).then(function (response) {
-    console.log('Ajax Reponse \n-------------');
-    console.log(response);
-    console.log(response.name);
-    console.log(response.main.temp);
-    console.log(response.main.humidity);
-    console.log(response.wind.speed);
+    
+    var lat = response.coord.lat;
+    var lon = response.coord.lon;
+    console.log(lat);
+    console.log(lon);
+  
+  
     //set to display
     $('#curCity').text(response.name);
     $('#curTemp').text('Temperature: ' + response.main.temp);
     $('#curWind').text('Wind: ' + response.main.humidity);
     $('#curHumi').text('Humidity: ' + response.wind.speed);
+
+    var today = moment().format('L');
+    $("#curDay").text(today);
+    console.log(today);
+
+    // the lat and lon here are from lines 38 and 39
+    getUV(lat, lon);
+    getFive(searchInputVal);
   })
    .catch(function (err) {
     console.error(err);
   });
 }
+
+function getUV (lat, lon){
+  $.ajax({
+      url: ('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + key),
+      method: 'GET',
+    }).then(function (response) {
+  
+      $('#curUV').text('UV Index: ' + response.current.uvi);
+      
+    })
+     .catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  function getFive(searchInputVal){
+    $.ajax({
+        url: ('https://api.openweathermap.org/data/2.5/forecast/daily?q=' + searchInputVal + '&cnt=5' + '&appid=' + key),
+        method: 'GET',
+      }).then(function (response) {
+    
+      console.log(response);  
+        
+      })
+       .catch(function (err) {
+        console.error(err);
+      });
+    }
+
+   
+
+// 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + key),
+
+// function getUV (){
+// $.ajax({
+//   uvApiUrl: ('https://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + lon + '&appid=' + key),
+//   method: 'GET',
+// }).then(function (response) {
+//   var lat = response.coord.lat;
+//   var lon = response.coord.lon;
+//   console.log(response);
+//     return response.json()
+
+//   })
+
 
 
