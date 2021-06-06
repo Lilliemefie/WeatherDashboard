@@ -1,7 +1,7 @@
 
 //create variable
 var searchBtn = document.querySelector('#searchBtn');
-var searchInputVal;
+//var searchInputVal;
 //API key from openweathermap (in my account)
 var key = '91982993508dc4b35a5d3a4295c7bf1e';
 // var lat;
@@ -11,7 +11,7 @@ var key = '91982993508dc4b35a5d3a4295c7bf1e';
 // Search bar submit function
 function handleSearchFormSubmit(event){
     event.preventDefault();
-    searchInputVal = document.querySelector('.searchInput').value;
+    var searchInputVal = document.querySelector('.searchInput').value;
     console.log(searchInputVal)
   
 
@@ -46,7 +46,7 @@ $.ajax({
   
     //set to display
     $('#curCity').text(response.name);
-    $('#curTemp').text('Temperature: ' + response.main.temp);
+    $('#curTemp').text('Temperature: ' + response.main.temp + '°F');
     $('#curWind').text('Wind: ' + response.main.humidity);
     $('#curHumi').text('Humidity: ' + response.wind.speed);
 
@@ -56,7 +56,7 @@ $.ajax({
 
     // the lat and lon here are from lines 38 and 39
     getUV(lat, lon);
-    getFive(searchInputVal);
+    
   })
    .catch(function (err) {
     console.error(err);
@@ -76,10 +76,11 @@ function getUV (lat, lon){
       console.error(err);
     });
   }
+  
 
   function getFive(searchInputVal){
     $.ajax({
-        url: ('https://api.openweathermap.org/data/2.5/forecast/daily?q=' + searchInputVal + '&cnt=5' + '&appid=' + key),
+        url: ('https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&cnt=5' + '&appid=' + key),
         method: 'GET',
       }).then(function (response) {
     
