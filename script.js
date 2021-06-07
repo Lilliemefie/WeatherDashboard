@@ -1,6 +1,8 @@
 
 //create variable
 var searchBtn = document.querySelector('#searchBtn');
+var fiveDayRowId = $('#fiveDayRow');
+
 //var searchInputVal;
 //API key from openweathermap (in my account)
 var key = '91982993508dc4b35a5d3a4295c7bf1e';
@@ -80,19 +82,41 @@ function getUV (lat, lon){
 
   function getFive(searchInputVal){
     $.ajax({
-        url: ('https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&cnt=5' + '&appid=' + key),
+        url: ('https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&units=imperial' + '&cnt=5' + '&appid=' + key),
         method: 'GET',
       }).then(function (response) {
-    
-      console.log(response);  
-        
+        console.log(response);
+        for (var i = 0; i < response.list.length; i++) {
+      //  $(temp).text(response.list[i].main.temp);   
+
+      //  $
+      
+      fiveDayRowId.append(`<div class="col mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" id="dateFive">Card title</h5>
+          <img src="https://img.icons8.com/fluent-systems-regular/2x/puzzle.png">
+          <p class="card-text temp">Temp: ${response.list[i].main.temp}</p>
+          <p class="card-text wind">Wind: ${response.list[i].wind.speed}</p>
+          <p class="card-text humi">Humidity: ${response.list[i].main.humidity}</p>
+        </div>
+      </div>
+    </div>`)
+
+
+      //console.log(response.list[0].main.temp);
+
+      }
       })
        .catch(function (err) {
         console.error(err);
       });
     }
 
-   
+  // function printFive(){
+
+  // } 
+
 
 // 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + key),
 
