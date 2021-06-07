@@ -10,7 +10,6 @@ var today = moment().format('L');
 var key = '91982993508dc4b35a5d3a4295c7bf1e';
 
 
-
 // Search bar submit function
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -51,10 +50,12 @@ function getWeather(searchInputVal) {
     url: ('https://api.openweathermap.org/data/2.5/weather?q=' + searchInputVal + '&units=imperial' + '&appid=' + key),
     method: 'GET',
   }).then(function (response) {
-
+    console.log(response)
     //give variable to "lat" and "lon" to use for getting UV Index API 
     var lat = response.coord.lat;
     var lon = response.coord.lon;
+    var curWeatherIcon = response.weather[0].icon;
+    console.log(curWeatherIcon);
 
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
@@ -82,6 +83,7 @@ function getUV(lat, lon) {
   }).then(function (response) {
     $('#curUV').text('UV Index: ' + response.current.uvi);
 
+
   })
     .catch(function (err) {
       console.error(err);
@@ -97,24 +99,28 @@ function getFive(searchInputVal) {
     console.log(response);
     fiveDayRowId.html('');
     for (var i = 0; i < response.list.length; i++) {
-      //  $(temp).text(response.list[i].main.temp);   
+      
       var days = response.list[i].dt;
       console.log(days);
-      var dayString = moment.unix(days).format("MM/DD/YYYY");
+      var dayString = moment.unix('1623153600').format("MM/DD/YYYY");
       console.log(dayString);
 
+ //var weatherIcon = response.list[i].weather[0].icon;
+      var weathIconDisplay = "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png";
+      console.log(weathIconDisplay);
+
+//<img src="http://openweathermap.org/img/w/" +  + '.png'>
       fiveDayRowId.append(`<div class="col mb-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title" id="dateFive">${dayString}</h5>
-          <img src="https://img.icons8.com/fluent-systems-regular/2x/puzzle.png">
+          <h5 class="card-title" id="dateFive"></h5>
+          <img src= ${weathIconDisplay}>
           <p class="card-text temp">Temp: ${response.list[i].main.temp}  °F</p>
           <p class="card-text wind">Wind: ${response.list[i].wind.speed}</p>
           <p class="card-text humi">Humidity:${response.list[i].main.humidity}</p>
         </div>
       </div>
     </div>`)
-
 
     }
   })
