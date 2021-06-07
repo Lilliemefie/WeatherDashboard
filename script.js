@@ -1,6 +1,7 @@
 
 //create variable
 var searchBtn = document.querySelector('#searchBtn');
+var container = document.querySelector('.container-fluid');
 var fiveDayRowId = $('#fiveDayRow');
 
 //var searchInputVal;
@@ -21,6 +22,7 @@ function handleSearchFormSubmit(event){
       console.error('Please put the city...');
       return;
     }  
+    container.style.display = "block";
     getWeather(searchInputVal);
     getFive(searchInputVal);
   }
@@ -98,7 +100,7 @@ function getUV (lat, lon){
           <img src="https://img.icons8.com/fluent-systems-regular/2x/puzzle.png">
           <p class="card-text temp">Temp: ${response.list[i].main.temp}</p>
           <p class="card-text wind">Wind: ${response.list[i].wind.speed}</p>
-          <p class="card-text humi">Humidity: ${response.list[i].main.humidity}</p>
+          <p class="card-text humi">Humidity:${response.list[i].main.humidity}</p>
         </div>
       </div>
     </div>`)
