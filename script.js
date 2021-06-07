@@ -1,6 +1,7 @@
 
 //create variable
 var searchBtn = document.querySelector('#searchBtn');
+var searchInput = document.querySelector('.searchInput');
 var fiveDayRowId = $('#fiveDayRow');
 var cityListId = $('#cityListId');
 //set variablr for the current date (nmultiple Locale Support format)
@@ -29,13 +30,15 @@ function handleSearchFormSubmit(event){
       $(cityList).text(searchCity);
       $('#cityListId').append(cityList);
        
-
+      
     }  
     //call function
     getWeather(searchInputVal);
-    getFive(searchInputVal);
+    
+    
   }
 
+ 
   
 //Search button event listener
 searchBtn.addEventListener('click', handleSearchFormSubmit);
@@ -68,18 +71,17 @@ $.ajax({
     var lat = response.coord.lat;
     var lon = response.coord.lon;
   
-    
+
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
     $('#curTemp').text('Temperature: ' + response.main.temp + ' °F');
     $('#curWind').text('Wind: ' + response.main.humidity);
     $('#curHumi').text('Humidity: ' + response.wind.speed);
 
-    
 
     // the lat and lon here are from lines 38 and 39
     getUV(lat, lon);
-    
+    getFive(searchInputVal);
   })
    .catch(function (err) {
     console.error(err);
@@ -117,7 +119,7 @@ function getUV (lat, lon){
       fiveDayRowId.append(`<div class="col mb-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title" id="dateFive">Card title</h5>
+          <h5 class="card-title" id="dateFive">Date</h5>
           <img src="https://img.icons8.com/fluent-systems-regular/2x/puzzle.png">
           <p class="card-text temp">Temp: ${response.list[i].main.temp}  °F</p>
           <p class="card-text wind">Wind: ${response.list[i].wind.speed}</p>
