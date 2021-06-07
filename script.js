@@ -44,20 +44,6 @@ function handleSearchFormSubmit(event){
 searchBtn.addEventListener('click', handleSearchFormSubmit);
 
 
-//save searched city on left side
-// function saveCity(searchInputVal){
-//   var searchCity = localStorage.getItem("searchInputVal", searchInputVal);
-//   console.log(searchCity);
-  //var cityList = document.textContent(searchCity);
-
-  // var cityBtn = document.createElement('li');
-  // cityBtn.appendChild(cityList);
-  // cityListId.appendChild(cityBtn);
-
-
-// }
-
-
 
 // AJAX call requires a third party library, jQuery
 function getWeather (searchInputVal){
@@ -129,7 +115,7 @@ function getUV (lat, lon){
     </div>`)
 
 
-      //console.log(response.list[0].main.temp);
+      
 
       }
       })
