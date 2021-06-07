@@ -18,6 +18,16 @@
     border: 1px solid #f8c146
 }
 
-.container-fluid {
-    display: none;
-}
+/* make only placeholder italics in input */
+::-webkit-input-placeholder {
+    font-style: italic;
+ }
+ :-moz-placeholder {
+    font-style: italic;  
+ }
+ ::-moz-placeholder {
+    font-style: italic;  
+ }
+ :-ms-input-placeholder {  
+    font-style: italic; 
+ }

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./style.css">
 
-    <title>Document</title>
+    <title>AskmeWeather | Good Day?</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
           <!-- search Bar -->
             <div class="row justify-content-center searchBox">    
                <div class="col-md-12 input-group">
-                   <input type="text" class="form-control input-text searchInput" placeholder="Search for Your City...Los Angeles, Boston, ">
+                   <input type="text" class="form-control input-text searchInput" placeholder="Search City e.g. Los Angeles, Bangkok, London... ">
                      <div class="input-group-append" id="searchBtn">
                       <button type="button" class="btn btn-outline-warning"><i class="fa fa-search"></i></button>
                      </div>
@@ -40,22 +40,23 @@
         <!-- this card need to be hide when page first load -->
       <section class="col-12 col-md-4 col-lg-3">
         <div class="card custom-card w-55" style="text-align: center;">
-          <h5 class="card-header">Previous Search City</h5>
+          <h5 class="card-header" id="test">Previous Search City</h5>
+          <ul id="cityListId"></ul>
           <div class="card-body">
           <ul class="list-group list-group-flush">
           </ul>
           </div>
         </div>
       </section>
-
+      <!-- main card for current weather -->
       <section class="col-12 col-md-8 col-lg-9">
         <div class="card">
             <div class="card-body">
-           <h3 class="card-title" id="curCity">Current City: </h3><span id="curDay"></span>
-            <p class="card-text" id="curTemp"> Temp:</p>
-            <p class="card-text" id="curWind"> Wind:</p>
-            <p class="card-text" id="curHumi"> Humidity:</p>
-            <p class="card-text" id="curUV"> UV Index:</p>
+           <h3 class="card-title" id="curCity">Current Weather </h3>
+            <p class="card-text" id="curTemp"></p>
+            <p class="card-text" id="curWind"></p>
+            <p class="card-text" id="curHumi"></p>
+            <p class="card-text" id="curUV"></p>
             </div>
           </div>
       <br>
@@ -117,7 +118,6 @@
           </div>
         </div> -->
       </section>
-
     </div>
   </main>
 
