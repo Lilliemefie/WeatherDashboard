@@ -25,6 +25,7 @@ function handleSearchFormSubmit(event){
       console.log(searchCity);
      
       var cityList = document.createElement('li');
+      cityList.setAttribute("class", "buttonList");
       $(cityList).text(searchCity);
       $('#cityListId').append(cityList);
        
