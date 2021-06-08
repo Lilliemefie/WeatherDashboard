@@ -60,3 +60,18 @@
 	position:relative;
 	top:1px;
 } */
+
+.uvGood {
+    background-color: #76d7c4;
+    padding: 0px 6px 0px 3px;
+}
+
+.uvModerate {
+    background-color: #f8c471;
+    padding: 0px 6px 0px 3px;
+}
+
+.uvDanger{
+    background-color: #EC7063;
+    padding: 0px 6px 0px 3px;
+}

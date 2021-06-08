@@ -2,8 +2,10 @@
 //create variable
 var searchBtn = document.querySelector('#searchBtn');
 var searchInput = document.querySelector('.searchInput');
+var curUV = document.querySelector('#curUV');
 var fiveDayRowId = $('#fiveDayRow');
 var cityListId = $('#cityListId');
+
 //var image = document.querySelector('#curIcon')
 //set variablr for the current date (nmultiple Locale Support format)
 var today = moment().format('L');
@@ -51,7 +53,7 @@ function getWeather(searchInputVal) {
     url: ('https://api.openweathermap.org/data/2.5/weather?q=' + searchInputVal + '&units=imperial' + '&appid=' + key),
     method: 'GET',
   }).then(function (response) {
-    console.log(response)
+    
     //give variable to "lat" and "lon" to use for getting UV Index API 
     var lat = response.coord.lat;
     var lon = response.coord.lon;
@@ -62,11 +64,10 @@ function getWeather(searchInputVal) {
     image.src = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
     //3. Append the image to card body, class named "cardCur"
     $('.cardCur').append(image);
-    console.log(image.src)
+  
 
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
-    // $('#curIcon').html(curWeatherIcon);
     $('#curTemp').text('Temperature: ' + response.main.temp + ' °F');
     $('#curWind').text('Wind: ' + response.main.humidity);
     $('#curHumi').text('Humidity: ' + response.wind.speed);
@@ -89,9 +90,15 @@ function getUV(lat, lon) {
     url: ('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + key),
     method: 'GET',
   }).then(function (response) {
-    $('#curUV').text('UV Index: ' + response.current.uvi);
-
-
+    $('#curUV').text(' ' + response.current.uvi + ' ');
+    if (response.current.uvi < 5){
+      curUV.classList.add('uvGood');
+    }else if (response.current.uvi > 5 && response.current.uvi <= 7){
+      curUV.classList.add('uvModerate');
+    }else{
+      curUV.classList.add('uvDanger');
+    }
+    
   })
     .catch(function (err) {
       console.error(err);
