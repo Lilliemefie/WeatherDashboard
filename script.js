@@ -59,12 +59,15 @@ function getWeather(searchInputVal) {
     var lon = response.coord.lon;
     
     // To display the icon (image), 1. created an img element using the createElement method of the Document object
-    const image = document.createElement('img');
-    //2. Set the src attribute of the image
-    image.src = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
-    //3. Append the image to card body, class named "cardCur"
-    $('.cardCur').append(image);
+    // const image = document.createElement('img');
+    // //2. Set the src attribute of the image
+    // image.src = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
+    // //3. Append the image to card body, class named "cardCur"
+    // $('.cardCur').append(image);
   
+  var curIconImg = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+  console.log(curIconImg);
+   document.getElementById('curIcon').src = curIconImg;
 
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
