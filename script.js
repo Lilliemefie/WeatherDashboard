@@ -58,16 +58,10 @@ function getWeather(searchInputVal) {
     var lat = response.coord.lat;
     var lon = response.coord.lon;
     
-    // To display the icon (image), 1. created an img element using the createElement method of the Document object
-    // const image = document.createElement('img');
-    // //2. Set the src attribute of the image
-    // image.src = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
-    // //3. Append the image to card body, class named "cardCur"
-    // $('.cardCur').append(image);
-  
+
+  // To display the icon (image)
   var curIconImg = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-  console.log(curIconImg);
-   document.getElementById('curIcon').src = curIconImg;
+  document.getElementById('curIcon').src = curIconImg;
 
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
@@ -120,14 +114,15 @@ function getFive(searchInputVal) {
       
       var days = response.list[i].dt;
       console.log(days);
-      var dayString = moment.unix('1623153600').format("MM/DD/YYYY");
+      var dayString = moment.unix(days).format("MM/DD/YYYY");
       console.log(dayString);
+
+    
 
  //var weatherIcon 
       var weathIconDisplay = "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png";
       
-
-//<img src="http://openweathermap.org/img/w/" +  + '.png'>
+//set to display
       fiveDayRowId.append(`<div class="col mb-4">
       <div class="card">
         <div class="card-body">
