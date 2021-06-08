@@ -5,8 +5,6 @@ var searchInput = document.querySelector('.searchInput');
 var curUV = document.querySelector('#curUV');
 var fiveDayRowId = $('#fiveDayRow');
 var cityListId = $('#cityListId');
-
-//var image = document.querySelector('#curIcon')
 //set variablr for the current date (nmultiple Locale Support format)
 var today = moment().format('L');
 //API key from openweathermap (in my account)
@@ -28,23 +26,19 @@ function handleSearchFormSubmit(event) {
     console.log(searchCity);
 
     var cityList = document.createElement('li');
+    console.log(cityList);
     cityList.setAttribute("class", "buttonList");
+    cityList.setAttribute("type", "button");
     $(cityList).text(searchCity);
     $('#cityListId').append(cityList);
-
-
   }
   //call function
   getWeather(searchInputVal);
-
-
 }
-
 
 
 //Search button event listener
 searchBtn.addEventListener('click', handleSearchFormSubmit);
-
 
 
 // AJAX call requires a third party library, jQuery
@@ -109,13 +103,14 @@ function getFive(searchInputVal) {
     method: 'GET',
   }).then(function (response) {
     console.log(response);
+    // below is for stop from repeating
     fiveDayRowId.html('');
     for (var i = 0; i < response.list.length; i++) {
       
-      var days = response.list[i].dt;
-      console.log(days);
-      var dayString = moment.unix(days).format("MM/DD/YYYY");
-      console.log(dayString);
+      // var days = response.list[i].dt;
+      // console.log(days);
+      // var dayString = moment.unix(days).format("MM/DD/YYYY");
+      // console.log(dayString);
 
     
 
@@ -126,7 +121,7 @@ function getFive(searchInputVal) {
       fiveDayRowId.append(`<div class="col mb-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title" id="dateFive"></h5>
+          <h5 class="card-title" id="dateFive">${moment.unix(response.list[i].dt).format("MM/DD/YYYY")}</h5>
           <img src= ${weathIconDisplay}>
           <p class="card-text temp">Temp: ${response.list[i].main.temp}  °F</p>
           <p class="card-text wind">Wind: ${response.list[i].wind.speed}</p>
@@ -134,7 +129,7 @@ function getFive(searchInputVal) {
         </div>
       </div>
     </div>`)
-
+      
     }
   })
     .catch(function (err) {
