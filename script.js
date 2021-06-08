@@ -4,6 +4,7 @@ var searchBtn = document.querySelector('#searchBtn');
 var searchInput = document.querySelector('.searchInput');
 var fiveDayRowId = $('#fiveDayRow');
 var cityListId = $('#cityListId');
+//var image = document.querySelector('#curIcon')
 //set variablr for the current date (nmultiple Locale Support format)
 var today = moment().format('L');
 //API key from openweathermap (in my account)
@@ -54,11 +55,18 @@ function getWeather(searchInputVal) {
     //give variable to "lat" and "lon" to use for getting UV Index API 
     var lat = response.coord.lat;
     var lon = response.coord.lon;
-    var curWeatherIcon = response.weather[0].icon;
-    console.log(curWeatherIcon);
+    
+    // To display the icon (image), 1. created an img element using the createElement method of the Document object
+    const image = document.createElement('img');
+    //2. Set the src attribute of the image
+    image.src = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
+    //3. Append the image to card body, class named "cardCur"
+    $('.cardCur').append(image);
+    console.log(image.src)
 
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
+    // $('#curIcon').html(curWeatherIcon);
     $('#curTemp').text('Temperature: ' + response.main.temp + ' °F');
     $('#curWind').text('Wind: ' + response.main.humidity);
     $('#curHumi').text('Humidity: ' + response.wind.speed);
@@ -105,9 +113,9 @@ function getFive(searchInputVal) {
       var dayString = moment.unix('1623153600').format("MM/DD/YYYY");
       console.log(dayString);
 
- //var weatherIcon = response.list[i].weather[0].icon;
+ //var weatherIcon 
       var weathIconDisplay = "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png";
-      console.log(weathIconDisplay);
+      
 
 //<img src="http://openweathermap.org/img/w/" +  + '.png'>
       fiveDayRowId.append(`<div class="col mb-4">
