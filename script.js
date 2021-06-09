@@ -47,15 +47,15 @@ function getWeather(searchInputVal) {
     url: ('https://api.openweathermap.org/data/2.5/weather?q=' + searchInputVal + '&units=imperial' + '&appid=' + key),
     method: 'GET',
   }).then(function (response) {
-    
+
     //give variable to "lat" and "lon" to use for getting UV Index API 
     var lat = response.coord.lat;
     var lon = response.coord.lon;
-    
 
-  // To display the icon (image)
-  var curIconImg = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-  document.getElementById('curIcon').src = curIconImg;
+
+    // To display the icon (image)
+    var curIconImg = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+    document.getElementById('curIcon').src = curIconImg;
 
     //set to display
     $('#curCity').text('Current City:  ' + response.name + ' (' + today + ')');
@@ -82,14 +82,14 @@ function getUV(lat, lon) {
     method: 'GET',
   }).then(function (response) {
     $('#curUV').text(' ' + response.current.uvi + ' ');
-    if (response.current.uvi < 5){
+    if (response.current.uvi < 5) {
       curUV.classList.add('uvGood');
-    }else if (response.current.uvi > 5 && response.current.uvi <= 7){
+    } else if (response.current.uvi > 5 && response.current.uvi <= 7) {
       curUV.classList.add('uvModerate');
-    }else{
+    } else {
       curUV.classList.add('uvDanger');
     }
-    
+
   })
     .catch(function (err) {
       console.error(err);
@@ -99,26 +99,25 @@ function getUV(lat, lon) {
 //get Five Day Forecast 
 function getFive(searchInputVal) {
   $.ajax({
-    url: ('https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&units=imperial' + '&cnt=5' + '&appid=' + key),
+    url: ('https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&units=imperial' + '&cnt=40' + '&appid=' + key),
     method: 'GET',
   }).then(function (response) {
     console.log(response);
     // below is for stop from repeating
     fiveDayRowId.html('');
     for (var i = 0; i < response.list.length; i++) {
-      
-      // var days = response.list[i].dt;
-      // console.log(days);
-      // var dayString = moment.unix(days).format("MM/DD/YYYY");
-      // console.log(dayString);
+      if (i % 8 === 0) {
+        var days = response.list[i].dt;
+        console.log(days);
+        var dayString = moment.unix(days).format("MM/DD/YYYY hh:mm:ss");
+        console.log(dayString);
 
-    
 
- //var weatherIcon 
-      var weathIconDisplay = "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png";
-      
-//set to display
-      fiveDayRowId.append(`<div class="col mb-4">
+        //var weatherIcon 
+        var weathIconDisplay = "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png";
+
+        //set to display
+        fiveDayRowId.append(`<div class="col mb-4">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title" id="dateFive">${moment.unix(response.list[i].dt).format("MM/DD/YYYY")}</h5>
@@ -129,7 +128,7 @@ function getFive(searchInputVal) {
         </div>
       </div>
     </div>`)
-      
+      }
     }
   })
     .catch(function (err) {
