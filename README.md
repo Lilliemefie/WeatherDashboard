@@ -32,3 +32,6 @@ credit:
 - Unsplash Photo by: [Carla Cervantes](https://unsplash.com/@carlaforniagirl)
 
 
+## License
+![GitHub license](https://img.shields.io/badge/license-MIT-yellow.svg) 
+
